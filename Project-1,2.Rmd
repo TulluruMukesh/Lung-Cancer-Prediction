@@ -1,0 +1,48 @@
+---
+title: "Lung Cancer Dataset Overview"
+output:
+  ioslides_presentation:
+    toc: true
+    widescreen: true
+    smaller: false
+---
+
+## Introduction and Problem
+
+Pulmonary diseases are a major health concern that can significantly affect an individual's quality of life. Early detection and risk prediction can play a crucial role in preventing the progression of these conditions. This project aims to predict the likelihood of an individual having a pulmonary disease based on health-related factors such as age, smoking habits, alcohol consumption, oxygen saturation, stress levels, and exposure to pollution.
+
+Using the Lung Cancer Prediction Dataset, which includes both binary and continuous variables, we analyze how lifestyle, environmental, and physiological factors contribute to the risk of developing lung-related illnesses. The goal is to build an accurate and interpretable predictive model that can help identify high-risk individuals based on their personal and environmental health attributes.
+
+---
+
+## Research Question
+
+> Can we accurately predict the presence of pulmonary disease in individuals based on lifestyle, environmental, and physiological factors such as smoking, oxygen saturation, energy level, and exposure to pollution?
+
+---
+
+## Data Loading and Cleaning
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(corrplot)
+library(ggplot2)
+
+df <- read.csv("lung_cancer_dataset.csv")
+
+str(df)
+head(df)
+colSums(is.na(df))
+
+df$GENDER <- as.factor(df$GENDER)
+df$PULMONARY_DISEASE <- as.factor(ifelse(df$PULMONARY_DISEASE == "YES", 1, 0))
+df$FINGER_DISCOLORATION <- ifelse(df$FINGER_DISCOLORATION == "Yes", 1, 0)
+```
+In this section, I loaded the lung cancer dataset and explored its structure. I checked for any missing values, but none were found. Then, I performed basic data cleaning by converting categorical text variables such as gender and pulmonary disease status into numeric or factor formats. This step is important because machine learning models require the data to be in a numeric form to make accurate predictions. These transformations help the model understand and use the information effectively during training.
+
+## Exploratory Data Analysis
+```{r message=FALSE, warning=FALSE}
+summary(df)
+#Shows the minimum, maximum, mean, and median for each variable in the dataset.
+
+
